@@ -1,13 +1,15 @@
 //const variables
 const express = require('express');
 const path = require('path');
-const api = require('./routes/index')
+const apiRoutes = require('./routes/apiRoutes.js');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('./pubic'));
+app.use(express.static(path.join(__dirname, '/public')));
+app.use(apiRoutes);
 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'))

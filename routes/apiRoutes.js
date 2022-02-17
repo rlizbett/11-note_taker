@@ -1,13 +1,13 @@
-const notes = require('express').Router();
-const { readFromFile, readAndWriteFile, deleteFile } = require('../utils/fsutils');
-const uuid = require('../utils/uuid');
+const Router = require('express').Router();
+const { readFromFile, readAndWriteFile } = require('../utils/fsutils');
 
-notes.get('/', (req, res) => {
+
+Router.get('/api/notes', (req, res) => {
     console.info(`${req.method} request received`);
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
-notes.post('/', (req, res) => {
+Router.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received`);
     console.log(req.body);
 
@@ -17,7 +17,6 @@ notes.post('/', (req, res) => {
         const newNote = {
             title,
             text,
-            note_id: uuid(),
         };
 
         readAndWriteFile(newNote, './db/db.json');
@@ -28,11 +27,5 @@ notes.post('/', (req, res) => {
     }
 });
 
-notes.delete('/:note_id', (req, res) => {
-    const ID = req.params.note_id
-    deleteFile('./db/db.json', ID)
-    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)))
   
-  })
-  
-  module.exports = notes;
+module.exports = Router;

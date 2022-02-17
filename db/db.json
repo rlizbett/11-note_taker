@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "title": "note title",
+    "text": "note text"
+  },
+  {
+    "title": "new note",
+    "text": "new note"
+  },
+  {
+    "title": "new new note",
+    "text": "new note\n"
+  }
+]
